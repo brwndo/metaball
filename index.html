@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>metaball.space</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#preview">Skip to preview</a>
+    <div class="app">
+      <button
+        type="button"
+        id="panel-toggle"
+        class="panel-toggle"
+        aria-expanded="false"
+        aria-controls="controls-panel"
+      >
+        Controls
+      </button>
+      <aside id="controls-panel" class="panel" aria-label="Controls">
+        <div class="panel-chrome">
+          <button type="button" id="panel-close" class="panel-close">
+            Close
+          </button>
+        </div>
+        <div id="controls-content"></div>
+      </aside>
+      <main id="preview" class="preview" tabindex="-1">
+        <div id="empty-state" class="empty-state" hidden>
+          <h2 class="empty-state-title">No image yet</h2>
+          <p class="empty-state-body">
+            Upload a source image to drive the metaball grid. Darker areas
+            produce larger dots.
+          </p>
+          <button type="button" id="empty-upload-trigger" class="primary">
+            Upload image
+          </button>
+        </div>
+        <canvas
+          id="preview-canvas"
+          aria-label="Metaball preview"
+          role="img"
+        ></canvas>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+      <span class="toast-message"></span>
+      <button type="button" class="toast-action" hidden></button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
