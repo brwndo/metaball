@@ -27,17 +27,17 @@ export interface ExportPreset {
 }
 
 export const DEFAULT_RAMP_COLORS: Rgb[] = [
-  [0.494, 0.784, 0.91], // #7ec8e8 edge cyan
-  [0.722, 0.902, 0.188], // #b8e630 lime
-  [0.941, 0.353, 0.157], // #f05a28 orange
-  [0.961, 0.769, 0.722], // #f5c4b8 peach core
+  [0.675, 0.867, 0.957], // #acddf4 light blue edge
+  [0.408, 0.808, 0.761], // #68cec2 teal
+  [0.318, 0.761, 0.51], // #51c282 mid green
+  [0.2, 0.655, 0.329], // #33a754 green core
 ];
 
 export const DEFAULT_STATE: ControlState = {
-  cols: 24,
-  rows: 24,
+  cols: 14,
+  rows: 14,
   minRadius: 0.008,
-  maxRadius: 0.06,
+  maxRadius: 0.035,
   threshold: 1.0,
   softness: 0.0008,
   edge: 0.15,
