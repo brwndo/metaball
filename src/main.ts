@@ -30,17 +30,27 @@ function getPreviewDimensions(): { width: number; height: number } {
 function initPanelToggle(): void {
   const panel = document.querySelector<HTMLElement>("#controls-panel");
   const toggle = document.querySelector<HTMLButtonElement>("#panel-toggle");
-  const closeButton = document.querySelector<HTMLButtonElement>("#panel-close");
-  if (!panel || !toggle || !closeButton) return;
+  if (!panel || !toggle) return;
 
   const media = window.matchMedia("(max-width: 768px)");
   let previouslyFocused: HTMLElement | null = null;
   let trapHandler: ((event: KeyboardEvent) => void) | null = null;
 
-  const getFocusable = (): HTMLElement[] =>
-    [...panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)].filter(
-      (el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true",
+  const getFocusable = (): HTMLElement[] => {
+    const inPanel = [
+      ...panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+    ].filter(
+      (el) =>
+        !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true",
     );
+
+    // Keep the floating Close control in the dialog tab cycle on mobile.
+    if (media.matches && panel.classList.contains("is-open")) {
+      return [toggle, ...inPanel];
+    }
+
+    return inPanel;
+  };
 
   const releaseTrap = () => {
     if (trapHandler) {
@@ -85,7 +95,7 @@ function initPanelToggle(): void {
 
       document.addEventListener("keydown", trapHandler);
       requestAnimationFrame(() => {
-        closeButton.focus();
+        toggle.focus();
       });
       return;
     }
@@ -99,10 +109,6 @@ function initPanelToggle(): void {
 
   toggle.addEventListener("click", () => {
     setOpen(!panel.classList.contains("is-open"));
-  });
-
-  closeButton.addEventListener("click", () => {
-    setOpen(false);
   });
 
   window.addEventListener("keydown", (event) => {
